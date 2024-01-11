@@ -22,16 +22,9 @@ exports.speak = function (text) {
     cordova.exec((result)=>{
         const now = new Date().valueOf();
         if(result.type === "Word Boundary") {
-            console.log({
-                ...result,
-                elapsedTime: now - start,
-                currentWord: text.substr(result.charIndex, result.charLen),
-            });
+            console.log(result);
         } else {
-            console.log({
-                ...result,
-                elapsedTime: now - start,
-            });
+            console.log(result);
         }
         
     }, null, "TTS", "speak", [options]);
