@@ -11,6 +11,7 @@
 */
 
 exports.speak = function (text) {
+  return new Promise(function (resolve, reject) {
     const start = new Date().valueOf()
     var options = {};
     if (typeof text == "string") {
@@ -22,19 +23,25 @@ exports.speak = function (text) {
     cordova.exec((result)=>{
         const now = new Date().valueOf();
         if(result.type === "boundary") {
-            console.log({
+            const currentWord = typeof text == "string" ? text.substr(result.charIndex, result.charLen) : text.text.substr(result.charIndex, result.charLen)
+            const eventData = {
                 ...result,
                 elapsedTime: now - start,
-                currentWord: text.substr(result.charIndex, result.charLen),
-            });
+                currentWord: currentWord,
+            };
+            console.log(eventData);
+            resolve(eventData);
         } else {
-            console.log({
+            const eventData = {
                 ...result,
                 elapsedTime: now - start,
-            });
+            };
+            console.log(eventData);
+            resolve(eventData);
         }
         
-    }, null, "TTS", "speak", [options]);
+    }, reject, "TTS", "speak", [options]);
+  });
 };
 
 exports.stop = function () {
