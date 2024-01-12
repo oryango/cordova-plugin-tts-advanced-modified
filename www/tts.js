@@ -30,7 +30,6 @@ exports.speak = function (text) {
             const currentWord = typeof text == "string" ? text.substr(result.charIndex, result.charLen) : text.text.substr(result.charIndex, result.charLen)
             eventData.currentWord = currentWord
         } else if (result.type === "end") {
-            console.log(eventData);
             resolve(eventData)
         }
         console.log(eventData);
