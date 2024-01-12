@@ -21,7 +21,7 @@ exports.speak = function (text) {
     
     cordova.exec((result)=>{
         const now = new Date().valueOf();
-        if(result.type === "Word Boundary") {
+        if(result.type === "boundary") {
             console.log({
                 ...result,
                 elapsedTime: now - start,
