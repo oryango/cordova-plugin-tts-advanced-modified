@@ -27,7 +27,7 @@ exports.speak = function (text) {
             elapsedTime: now - start,
         };
         if(result.type === "boundary") {
-            const currentWord = typeof text == "string" ? text.substr(result.charIndex, result.charLen) : text.text.substr(result.charIndex, result.charLen)
+            const currentWord = typeof text == "string" ? text.substr(result.charIndex, result.charLength) : text.text.substr(result.charIndex, result.charLength)
             eventData.currentWord = currentWord
         } else if (result.type === "end") {
             resolve(eventData)
