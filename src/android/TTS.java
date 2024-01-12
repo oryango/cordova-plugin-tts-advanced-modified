@@ -64,7 +64,7 @@ public class TTS extends CordovaPlugin implements OnInitListener {
             public void onStart(String utteranceId) {
                 try {
                     JSONObject eventData = new JSONObject();
-                    eventData.put("type", "Start");
+                    eventData.put("type", "start");
                     sendCustomEvent(utteranceId, eventData, webView);
                 } catch (JSONException e) {
                     // Handle the exception or print the stack trace
@@ -78,7 +78,7 @@ public class TTS extends CordovaPlugin implements OnInitListener {
                     CallbackContext context = new CallbackContext(callbackId, webView);
                     try {
                         JSONObject eventData = new JSONObject();
-                        eventData.put("type", "End");
+                        eventData.put("type", "end");
                         context.success(eventData);
                     } catch (JSONException e) {
                         // Handle the exception or print the stack trace
@@ -99,9 +99,10 @@ public class TTS extends CordovaPlugin implements OnInitListener {
             public void onRangeStart (String utteranceId, int start, int end, int frame) {
                 try {
                     JSONObject eventData = new JSONObject();
-                    eventData.put("type", "Word Boundary");
+                    eventData.put("type", "boundary");
+                    eventData.put("name", "word");
                     eventData.put("charIndex", start);
-                    eventData.put("charLen", end-start);
+                    eventData.put("charLength", end-start);
                     sendCustomEvent(utteranceId, eventData, webView);
                 } catch (JSONException e) {
                     // Handle the exception or print the stack trace
