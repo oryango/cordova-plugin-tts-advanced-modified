@@ -22,23 +22,19 @@ exports.speak = function (text) {
     
     cordova.exec((result)=>{
         const now = new Date().valueOf();
+        const eventData = {
+            ...result,
+            elapsedTime: now - start,
+        };
         if(result.type === "boundary") {
             const currentWord = typeof text == "string" ? text.substr(result.charIndex, result.charLen) : text.text.substr(result.charIndex, result.charLen)
-            const eventData = {
-                ...result,
-                elapsedTime: now - start,
-                currentWord: currentWord,
-            };
+            eventData.currentWord = currentWord
+        } else if (result.type === "end") {
             console.log(eventData);
-            resolve(eventData);
-        } else {
-            const eventData = {
-                ...result,
-                elapsedTime: now - start,
-            };
-            console.log(eventData);
-            resolve(eventData);
+            resolve(eventData)
         }
+        console.log(eventData);
+        
         
     }, reject, "TTS", "speak", [options]);
   });
